@@ -1,0 +1,38 @@
+# ─── Source decks — kept local for backup, not deployed ──────────────
+# The in-page slide viewer uses the rendered JPGs in assets/work/slides/
+# so the source PDFs never need to be public.
+assets/work/decks/
+
+# ─── Unused artifacts from earlier iterations ───────────────────────
+p1.jpeg
+p2.jpeg
+p3.jpeg
+p4.jpeg
+p5.jpeg
+tejas-photo-processed.jpg
+tejas-portrait.png
+
+# ─── Developer files (not for public deploy) ────────────────────────
+CLAUDE_CODE_BRIEF.md
+
+# ─── macOS noise ────────────────────────────────────────────────────
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+
+# ─── Editor / IDE ───────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── Logs and temp ──────────────────────────────────────────────────
+*.log
+*.tmp
+*.bak
+
+# ─── Node (in case anything ever gets installed) ────────────────────
+node_modules/
+package-lock.json

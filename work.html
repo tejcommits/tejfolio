@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Work — Just Tejas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --espresso:   #2F2C25;
+      --gold:       #D2B748;
+      --warm-white: #FFFEF9;
+      --cream:      #F8F5EE;
+      --muted:      #7a7669;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hanken Grotesk', sans-serif;
+      background: var(--warm-white);
+      color: var(--espresso);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p  { text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ─── Custom cursor — one solid nib, zero lag ───────────────── */
+    .cursor-nib {
+      position: fixed; top: 0; left: 0;
+      width: 14px; height: 24px;
+      pointer-events: none;
+      z-index: 10000;
+      opacity: 0;
+      transform-origin: 50% 0%;
+      transform: translate(-50%, 0%) rotate(-45deg);
+      transition: opacity 0.25s ease, transform 0.18s cubic-bezier(.22,.68,0,1.2);
+    }
+    .cursor-nib.hovering { transform: translate(-50%, 0%) rotate(-68deg); }
+    @keyframes ink-ring {
+      0%   { transform: translate(-50%, -50%) scale(1);  opacity: 0.85; }
+      100% { transform: translate(-50%, -50%) scale(6);  opacity: 0; }
+    }
+    .cursor-active .cursor-nib { opacity: 1; }
+    .cursor-active, .cursor-active * { cursor: none !important; }
+    @media (max-width: 900px) { .cursor-nib { display: none; } }
+
+    @keyframes spin-sun {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .sun-mark {
+      display: inline-flex;
+      align-items: center;
+      color: var(--gold);
+      animation: spin-sun 20s linear infinite;
+      flex-shrink: 0;
+      line-height: 0;
+    }
+
+    /* ─── Nav (inherited from index.html) ───────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(255,254,249,0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(47,44,37,0.06);
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; color: var(--espresso);
+    }
+
+    .nav-brand .sun-mark svg { width: 20px; height: 20px; }
+
+    .nav-wordmark {
+      font-weight: 700; font-size: 0.98rem; letter-spacing: -0.01em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      text-decoration: none; font-size: 0.87rem; font-weight: 500;
+      color: var(--espresso); opacity: 0.5; transition: opacity 0.2s; position: relative;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.active { opacity: 1; }
+
+    .nav-links a.active::after {
+      content: ''; position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1.5px; background: var(--gold); border-radius: 2px;
+    }
+
+    /* ─── Page header ──────────────────────────────────────────── */
+    .work-header {
+      padding: 9rem 3rem 6rem;
+      background: var(--warm-white);
+    }
+
+    .work-header-inner {
+      max-width: 1280px; margin: 0 auto;
+    }
+
+    .work-header h1 {
+      font-size: clamp(40px, 5.6vw, 72px);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.04;
+      color: var(--espresso);
+      max-width: 18ch;
+    }
+
+    .work-header-sub {
+      margin-top: 1.6rem;
+      font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+      font-weight: 300;
+      line-height: 1.55;
+      color: var(--espresso);
+      opacity: 0.62;
+      max-width: 620px;
+    }
+
+    .work-header-hint {
+      margin-top: 1.4rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: var(--espresso);
+      opacity: 0.5;
+    }
+
+    /* ─── Piece bands ──────────────────────────────────────────── */
+    .work-list {
+      border-top: 1px solid rgba(47,44,37,0.08);
+    }
+
+    /* Clickable wrapper. <a> wraps the whole piece for a single hit target. */
+    .piece-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    .piece-link:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: -8px;
+    }
+
+    .piece {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "image text";
+      min-height: 78vh;
+      border-bottom: 1px solid rgba(47,44,37,0.08);
+      align-items: stretch;
+    }
+
+    .piece-even {
+      grid-template-areas: "text image";
+    }
+
+    .piece-image {
+      grid-area: image;
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .piece-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+
+    /* Hover: gentle image push + reveal "view deck" cue on the text side */
+    .piece-link:hover .piece-image img {
+      transform: scale(1.025);
+    }
+
+    .piece-link:hover .piece-cue {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .piece-link:hover .piece-project {
+      color: var(--gold);
+    }
+
+    .piece-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .placeholder-amber {
+      background: linear-gradient(135deg, #ECDDB8 0%, #F8EFD4 60%, #E8D69C 100%);
+    }
+
+    .placeholder-dark {
+      background: linear-gradient(135deg, #14110D 0%, #1F1A12 50%, #0F0D0A 100%);
+    }
+
+    .placeholder-amber .placeholder-text {
+      color: var(--espresso);
+      opacity: 0.45;
+    }
+
+    .placeholder-dark .placeholder-text {
+      color: var(--warm-white);
+      opacity: 0.35;
+    }
+
+    .placeholder-text {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-style: italic;
+    }
+
+    .piece-text {
+      grid-area: text;
+      padding: 5rem 4.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.6rem;
+    }
+
+    .piece-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .piece-num {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+    }
+
+    .piece-divider-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.5;
+    }
+
+    .piece-client {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .piece-project {
+      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      color: var(--espresso);
+      margin-top: -0.2rem;
+    }
+
+    .piece-desc {
+      font-size: 1.02rem;
+      line-height: 1.78;
+      color: var(--espresso);
+      opacity: 0.72;
+      max-width: 56ch;
+      text-wrap: pretty;
+    }
+
+    .piece-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    .piece-project {
+      transition: color 0.28s ease;
+    }
+
+    .piece-cue {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--gold);
+      margin-top: 0.4rem;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.32s ease, transform 0.32s ease;
+    }
+
+    .piece-cue-arrow {
+      display: inline-block;
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .piece-link:hover .piece-cue-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Non-clickable pieces (07, 08 — no source asset yet) */
+    .piece-static {
+      display: block;
+    }
+
+    .piece-static .piece-cue {
+      color: var(--muted);
+      opacity: 0.55;
+      transform: translateY(0);
+      font-style: italic;
+    }
+
+    /* ─── In-page deck viewer (slides down under each piece) ────── */
+    .piece-viewer {
+      position: relative;
+      height: 0;
+      overflow: hidden;
+      background: var(--espresso);
+      border-bottom: 1px solid rgba(47,44,37,0.08);
+      transition: height 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .piece-viewer.is-open {
+      height: 88vh;
+    }
+
+    /* The vertical scroll container that holds every slide image */
+    .deck-scroller {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 3.5rem 6vw 5rem;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,254,249,0.18) transparent;
+    }
+    .deck-scroller::-webkit-scrollbar { width: 8px; }
+    .deck-scroller::-webkit-scrollbar-track { background: transparent; }
+    .deck-scroller::-webkit-scrollbar-thumb {
+      background: rgba(255,254,249,0.18);
+      border-radius: 4px;
+    }
+
+    /* Empty / loading state shown before slides hydrate */
+    .deck-scroller-empty {
+      display: flex; align-items: center; justify-content: center;
+      height: 60%;
+      color: var(--warm-white);
+      opacity: 0.4;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .deck-slide {
+      position: relative;
+      margin: 0 auto 1.6rem;
+      max-width: 1280px;
+      background: var(--warm-white);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+    }
+    .deck-slide:last-child { margin-bottom: 0; }
+
+    .deck-slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .deck-slide figcaption {
+      position: absolute;
+      bottom: -1.2rem; right: 0.4rem;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--warm-white);
+      opacity: 0.32;
+    }
+
+    .viewer-back {
+      position: absolute;
+      top: 1.2rem; left: 1.2rem;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.2rem;
+      border-radius: 100px;
+      background: rgba(255,254,249,0.94);
+      color: var(--espresso);
+      border: 0;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 0.32s ease, transform 0.32s ease, background 0.22s ease;
+    }
+
+    .viewer-back.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .viewer-back:hover {
+      background: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .viewer-close {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.2rem;
+      border-radius: 100px;
+      background: rgba(255,254,249,0.94);
+      color: var(--espresso);
+      border: 0;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+      transition: transform 0.22s ease, background 0.22s ease;
+    }
+
+    .viewer-close:hover {
+      background: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .viewer-close-x {
+      display: inline-block;
+      font-size: 1.1rem;
+      line-height: 0.8;
+      transform: translateY(-1px);
+    }
+
+    /* When viewer is open, indicate state on the trigger piece */
+    .piece-link.is-active .piece-image img {
+      transform: scale(1.025);
+    }
+
+    .piece-link.is-active .piece-project {
+      color: var(--gold);
+    }
+
+    .piece-link.is-active .piece-cue {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Mobile: viewer fills almost full height */
+    @media (max-width: 900px) {
+      .piece-viewer.is-open { height: 82vh; }
+      .viewer-close { top: 0.9rem; right: 0.9rem; padding: 0.6rem 1rem; font-size: 0.78rem; }
+    }
+
+    /* ─── End block ────────────────────────────────────────────── */
+    .work-end {
+      padding: 8rem 3rem 9rem;
+      text-align: center;
+      background: var(--cream);
+    }
+
+    .work-end-inner {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .work-end h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      color: var(--espresso);
+      margin-bottom: 1.2rem;
+    }
+
+    .work-end p {
+      font-size: 1.02rem;
+      color: var(--espresso);
+      opacity: 0.6;
+      line-height: 1.75;
+      margin-bottom: 2.4rem;
+    }
+
+    .work-end-btn {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--espresso);
+      background: var(--gold);
+      padding: 1rem 2.4rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: background 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+      box-shadow: 0 4px 20px rgba(210,183,72,0.28);
+    }
+
+    .work-end-btn:hover {
+      background: #e8cb4a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(210,183,72,0.42);
+    }
+
+    /* ─── Footer (inherited) ───────────────────────────────────── */
+    footer {
+      background: var(--espresso);
+      border-top: 1px solid rgba(255,254,249,0.06);
+      padding: 1.8rem 3rem; text-align: center;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem; color: var(--warm-white);
+      opacity: 0.36; letter-spacing: 0.02em;
+    }
+
+    /* ─── Mobile ───────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.4rem; }
+
+      .work-header { padding: 7rem 1.4rem 3.5rem; }
+      .work-header h1 { font-size: clamp(54px, 16vw, 88px); }
+      .work-header-sub { margin-top: 1rem; }
+
+      .piece,
+      .piece-even {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "image"
+          "text";
+        min-height: 0;
+      }
+
+      .piece-image {
+        height: 56vw;
+      }
+
+      .piece-placeholder {
+        min-height: 0;
+        height: 56vw;
+      }
+
+      .piece-text {
+        padding: 2.8rem 1.4rem 3.4rem;
+        gap: 1.2rem;
+      }
+
+      .piece-project {
+        font-size: clamp(1.7rem, 6.8vw, 2.2rem);
+      }
+
+      .work-end { padding: 5.5rem 1.4rem 6rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor-nib" aria-hidden="true">
+    <svg width="14" height="24" viewBox="0 0 14 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7 0.5 L13 9 L11.5 18 Q7 23 2.5 18 L1 9 Z"
+            fill="none"
+            stroke="#D2B748" stroke-width="1"/>
+      <line x1="7" y1="0.5" x2="7" y2="13.5"
+            stroke="#D2B748" stroke-width="0.65" opacity="0.75"/>
+      <ellipse cx="7" cy="14.5" rx="1.2" ry="1.6"
+               fill="none" stroke="#D2B748" stroke-width="0.7" opacity="0.8"/>
+      <circle cx="7" cy="0.5" r="1.3" fill="#D2B748"/>
+    </svg>
+  </div>
+
+  <!-- ─── NAV ──────────────────────────────────────────────────── -->
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <span class="sun-mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" width="20" height="20">
+          <circle cx="50" cy="50" r="18" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="50" y1="5"  x2="50" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="50" y1="80" x2="50" y2="95" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="5"  y1="50" x2="20" y2="50" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="80" y1="50" x2="95" y2="50" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="18.3" y1="18.3" x2="28.9" y2="28.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="71.1" y1="71.1" x2="81.7" y2="81.7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="81.7" y1="18.3" x2="71.1" y2="28.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="28.9" y1="71.1" x2="18.3" y2="81.7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="nav-wordmark">Tejas</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Hi</a></li>
+      <li><a href="cv.html">CV</a></li>
+      <li><a href="work.html" class="active">Work</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── PAGE HEADER ──────────────────────────────────────────── -->
+  <header class="work-header">
+    <div class="work-header-inner">
+      <h1>Some favourites I've worked on.</h1>
+      <p class="work-header-sub">The decks I'd stand behind, in the versions I liked best.<br>Some kept evolving after.</p>
+      <p class="work-header-hint">Click any to flip through the deck.</p>
+    </div>
+  </header>
+
+  <!-- ─── THE 8 PIECES ─────────────────────────────────────────── -->
+  <main class="work-list">
+
+    <!-- 01 · Hero XOOM (PDF, opens in browser) -->
+    <a class="piece-link" href="assets/work/01-hero-xoom.jpg" data-piece="01" aria-label="Open Hero XOOM deck">
+      <article class="piece piece-odd">
+        <div class="piece-image">
+          <img src="assets/work/01-hero-xoom.jpg" alt="Hero XOOM campaign title visual" />
+        </div>
+        <div class="piece-text">
+          <div class="piece-meta">
+            <span class="piece-num">01</span>
+            <span class="piece-divider-dot" aria-hidden="true"></span>
+            <span class="piece-client">Hero MotoCorp</span>
+          </div>
+          <h2 class="piece-project">Hero XOOM</h2>
+          <p class="piece-desc">The brief was a scooter launch. The question was: which version of this campaign do you lead with? So we made three. One drops the scooter into a Squid Game arena and turns every street into a survival game. One goes full 8-bit — Pac-Man, but you're the one doing the eating. One is built around a tagline simple enough to live on a billboard and sticky enough to survive the client meeting. Three different worlds, one brief.</p>
+          <span class="piece-tag">Campaign · 2024</span>
+          <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
+        </div>
+      </article>
+    </a>
+    <div class="piece-viewer" data-viewer-for="01" aria-hidden="true">
+      <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
+      <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
+      <div class="deck-scroller" data-deck-id="01-hero-xoom" aria-label="Hero XOOM — slides"></div>
+    </div>
+
+    <!-- 02 · Tata Motors Red#Dark Edition (PDF, opens in browser) -->
+    <a class="piece-link" href="assets/work/02-tata-red-dark.jpg" data-piece="02" aria-label="Open Red#Dark Edition deck">
+      <article class="piece piece-even">
+        <div class="piece-text">
+          <div class="piece-meta">
+            <span class="piece-num">02</span>
+            <span class="piece-divider-dot" aria-hidden="true"></span>
+            <span class="piece-client">Tata Motors</span>
+          </div>
+          <h2 class="piece-project">Red#Dark Edition</h2>
+          <p class="piece-desc">A limited dark edition car. So we put it somewhere dark. Not dramatically dark — cinematically dark. Deep space. Red accents against a black canvas. The Red Moon. The kind of aesthetic that makes you look twice because it shouldn't work as a car ad and yet it completely does.</p>
+          <span class="piece-tag">Campaign · 2024</span>
+          <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
+        </div>
+        <div class="piece-image">
+          <img src="assets/work/02-tata-red-dark.jpg" alt="The Red Moon — Tata Red#Dark Edition campaign visual" />
+        </div>
+      </article>
+    </a>
+    <div class="piece-viewer" data-viewer-for="02" aria-hidden="true">
+      <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
+      <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
+      <div class="deck-scroller" data-deck-id="02-tata-red-dark" aria-label="Red#Dark Edition — slides"></div>
+    </div>
+
+    <!-- 03 · Motilal Oswal (PDF, opens in browser) -->
+    <a class="piece-link" href="assets/work/03-motilal-oswal.jpg" data-piece="03" aria-label="Open The Lonely Bicycle deck">
+      <article class="piece piece-odd">
+        <div class="piece-image">
+          <img src="assets/work/03-motilal-oswal.jpg" alt="The Lonely Bicycle — Motilal Oswal print campaign visual" />
+        </div>
+        <div class="piece-text">
+          <div class="piece-meta">
+            <span class="piece-num">03</span>
+            <span class="piece-divider-dot" aria-hidden="true"></span>
+            <span class="piece-client">Motilal Oswal</span>
+          </div>
+          <h2 class="piece-project">The Lonely Bicycle</h2>
+          <p class="piece-desc">The insight was simple: idle money has feelings. Not literally — but the visual language of abandonment is universal. A bicycle that never gets ridden. A golf kit collecting dust in a corner. Objects designed for motion, going nowhere. The campaign made that stillness feel almost uncomfortable. Which is exactly what it should feel like when your money isn't working.</p>
+          <span class="piece-tag">Print Campaign · 2024</span>
+          <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
+        </div>
+      </article>
+    </a>
+    <div class="piece-viewer" data-viewer-for="03" aria-hidden="true">
+      <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
+      <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
+      <div class="deck-scroller" data-deck-id="03-motilal-oswal" aria-label="The Lonely Bicycle — slides"></div>
+    </div>
+
+    <!-- 04 · Bank of Baroda (PDF) -->
+    <a class="piece-link" href="assets/work/04-bank-of-baroda.jpg" data-piece="04" aria-label="Open Bank of Baroda x Startup Culture deck">
+      <article class="piece piece-even">
+        <div class="piece-text">
+          <div class="piece-meta">
+            <span class="piece-num">04</span>
+            <span class="piece-divider-dot" aria-hidden="true"></span>
+            <span class="piece-client">Bank of Baroda</span>
+          </div>
+          <h2 class="piece-project">When Sharks Step Back, We Step Up</h2>
+          <p class="piece-desc">Shark Tank India has a format: startups pitch, sharks decide, someone goes home empty-handed. We asked: what happens to the ones who leave without a deal? Bank of Baroda was already funding them. The campaign turned rejection into a story about who really believes in the long game.</p>
+          <span class="piece-tag">Integrated Campaign · 2024</span>
+          <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
+        </div>
+        <div class="piece-image">
+          <img src="assets/work/04-bank-of-baroda.jpg" alt="BoB × Shark Tank India lockup with cast" />
+        </div>
+      </article>
+    </a>
+    <div class="piece-viewer" data-viewer-for="04" aria-hidden="true">
+      <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
+      <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
+      <div class="deck-scroller" data-deck-id="04-bank-of-baroda" aria-label="Bank of Baroda — slides"></div>
+    </div>
+
+    <!-- 05 · Hibiki Suntory Whisky (PDF) -->
+    <a class="piece-link" href="assets/work/05-hibiki.jpg" data-piece="05" aria-label="Open Hibiki Making Harmony deck">
+      <article class="piece piece-odd">
+        <div class="piece-image">
+          <img src="assets/work/05-hibiki.jpg" alt="Crafting Harmony — Hibiki Suntory Whisky title mark" />
+        </div>
+        <div class="piece-text">
+          <div class="piece-meta">
+            <span class="piece-num">05</span>
+            <span class="piece-divider-dot" aria-hidden="true"></span>
+            <span class="piece-client">Hibiki Suntory Whisky</span>
+          </div>
+          <h2 class="piece-project">Making Harmony</h2>
+          <p class="piece-desc">An evening for one of Japan's most celebrated whiskies, hosted at Megu inside The Leela, with the Prince of Jaipur. Every touchpoint was considered — the invite design, the venue branding, the flow of the event itself. Hibiki is built around the idea of harmony between nature, craftsmanship, and time. The event had to feel like that. It did.</p>
+          <span class="piece-tag">Brand Experience · 2024</span>
+          <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
+        </div>
+      </article>
+    </a>
+    <div class="piece-viewer" data-viewer-for="05" aria-hidden="true">
+      <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
+      <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
+      <div class="deck-scroller" data-deck-id="05-hibiki" aria-label="Hibiki Making Harmony — slides"></div>
+    </div>
+
+    <!-- 06 · EAAA (PDF) -->
+    <a class="piece-link" href="assets/work/06-eaaa.jpg" data-piece="06" aria-label="Open EAAA IPO = FOMO deck">
+      <article class="piece piece-even">
+        <div class="piece-text">
+          <div class="piece-meta">
+            <span class="piece-num">06</span>
+            <span class="piece-divider-dot" aria-hidden="true"></span>
+            <span class="piece-client">EAAA</span>
+          </div>
+          <h2 class="piece-project">IPO = FOMO</h2>
+          <p class="piece-desc">An IPO launch with a finance influencer strategy built around one mechanic: make people feel like they're missing something before they know what it is. The "Curiosity Buster" — a teaser-first content format that used influencer reach to build buzz before the product was named. FOMO as a campaign engine, not just a tagline.</p>
+          <span class="piece-tag">Digital Campaign · 2024</span>
+          <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
+        </div>
+        <div class="piece-image">
+          <img src="assets/work/06-eaaa.jpg" alt="EAAA IPO = FOMO campaign title visual" />
+        </div>
+      </article>
+    </a>
+    <div class="piece-viewer" data-viewer-for="06" aria-hidden="true">
+      <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
+      <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
+      <div class="deck-scroller" data-deck-id="06-eaaa" aria-label="EAAA IPO = FOMO — slides"></div>
+    </div>
+
+    <!-- 07 · Glucon-D (no deck or visual yet — non-clickable) -->
+    <div class="piece-static">
+      <article class="piece piece-odd">
+        <!-- TODO: replace with real Glucon-D TVC still/poster when available -->
+        <div class="piece-image">
+          <div class="piece-placeholder placeholder-amber">
+            <span class="placeholder-text">Visual coming soon</span>
+          </div>
+        </div>
+        <div class="piece-text">
+          <div class="piece-meta">
+            <span class="piece-num">07</span>
+            <span class="piece-divider-dot" aria-hidden="true"></span>
+            <span class="piece-client">Glucon-D</span>
+          </div>
+          <h2 class="piece-project">TVCs</h2>
+          <p class="piece-desc">On television. On brief. Shot, aired, and running across India. Mainline advertising with a clear mandate: make the brand feel energetic without resorting to the usual sports-and-sweat tropes. The kind of work that reminds you why broadcast still matters.</p>
+          <span class="piece-tag">TVC · 2022–2024</span>
+          <span class="piece-cue">Case study coming soon</span>
+        </div>
+      </article>
+    </div>
+
+    <!-- 08 · ASUS ROG (no deck or visual yet — non-clickable) -->
+    <div class="piece-static">
+      <article class="piece piece-even">
+        <div class="piece-text">
+          <div class="piece-meta">
+            <span class="piece-num">08</span>
+            <span class="piece-divider-dot" aria-hidden="true"></span>
+            <span class="piece-client">ASUS ROG</span>
+          </div>
+          <h2 class="piece-project">Crack the Code</h2>
+          <p class="piece-desc">Before Instagram Guides existed, before serialised social storytelling had a format or a name, we built a multi-episode mystery on Stories for the ROG Phone 3 launch. Each episode dropped a clue. The audience had to solve it. It ran across weeks, held engagement, and created a community around the reveal. Built for a platform before the platform knew what to do with it.</p>
+          <span class="piece-tag">Social Campaign · 2019</span>
+          <span class="piece-cue">Case study coming soon</span>
+        </div>
+        <!-- TODO: replace with real ROG Phone 3 Stories still/poster when available -->
+        <div class="piece-image">
+          <div class="piece-placeholder placeholder-dark">
+            <span class="placeholder-text">Visual coming soon</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+  </main>
+
+  <!-- ─── BOTTOM CTA ──────────────────────────────────────────── -->
+  <section class="work-end">
+    <div class="work-end-inner">
+      <h2>That's not all of it.</h2>
+      <p>More work, sorted by industry — finance, auto, FMCG, tech, and some AI experiments.</p>
+      <a href="#" class="work-end-btn">Explore more work →</a>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ───────────────────────────────────────────────── -->
+  <footer>
+    <p class="footer-copy">© 2026 Tejas Anilkumar. All rights reserved.</p>
+  </footer>
+
+  <!-- ─── Custom cursor — one solid nib, zero lag ───────────────── -->
+  <script>
+    (function() {
+      const cursorNib = document.querySelector('.cursor-nib');
+      if (!cursorNib) return;
+      let visible = false;
+      document.addEventListener('mousemove', e => {
+        cursorNib.style.left = e.clientX + 'px';
+        cursorNib.style.top  = e.clientY + 'px';
+        if (!visible) { visible = true; document.body.classList.add('cursor-active'); }
+      });
+      document.addEventListener('mouseleave', () => { document.body.classList.remove('cursor-active'); visible = false; });
+      document.addEventListener('mouseenter', () => { document.body.classList.add('cursor-active'); visible = true; });
+      document.querySelectorAll('a, button, .piece-link, .nav-brand').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorNib.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => cursorNib.classList.remove('hovering'));
+      });
+      document.addEventListener('click', e => {
+        const ring = document.createElement('div');
+        ring.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:8px;height:8px;border:1.5px solid #D2B748;border-radius:50%;pointer-events:none;z-index:10002;animation:ink-ring 0.45s ease-out forwards;`;
+        document.body.appendChild(ring);
+        setTimeout(() => ring.remove(), 460);
+      });
+    })();
+  </script>
+
+  <!-- ─── In-page deck viewer (no leaving the site) ─────────────── -->
+  <script>
+    (function() {
+      const links   = document.querySelectorAll('.piece-link');
+      const viewers = document.querySelectorAll('.piece-viewer');
+      const NAV_H   = 72;
+      /* Per-viewer remembered scroll position, keyed by viewer-for id */
+      const savedScroll = {};
+
+      /* ── Slide manifest: { "01-hero-xoom": 61, ... } ── */
+      let manifestPromise = null;
+      function getManifest() {
+        if (!manifestPromise) {
+          manifestPromise = fetch('assets/work/slides/manifest.json')
+            .then(r => r.ok ? r.json() : {})
+            .catch(() => ({}));
+        }
+        return manifestPromise;
+      }
+
+      async function hydrateScroller(scroller) {
+        if (scroller.dataset.hydrated === '1') return;
+        scroller.dataset.hydrated = 'loading';
+        scroller.innerHTML = '<div class="deck-scroller-empty">Loading slides…</div>';
+
+        const manifest = await getManifest();
+        const deckId   = scroller.dataset.deckId;
+        const count    = manifest[deckId];
+
+        if (!count) {
+          scroller.innerHTML = '<div class="deck-scroller-empty">Deck unavailable.</div>';
+          return;
+        }
+
+        const frag = document.createDocumentFragment();
+        for (let i = 1; i <= count; i++) {
+          const num = String(i).padStart(3, '0');
+          const fig = document.createElement('figure');
+          fig.className = 'deck-slide';
+          const img = document.createElement('img');
+          img.loading = i <= 2 ? 'eager' : 'lazy';
+          img.decoding = 'async';
+          img.src = `assets/work/slides/${deckId}/page-${num}.jpg`;
+          img.alt = `Slide ${i} of ${count}`;
+          const cap = document.createElement('figcaption');
+          cap.textContent = String(i).padStart(2, '0') + ' / ' + String(count).padStart(2, '0');
+          fig.appendChild(img);
+          fig.appendChild(cap);
+          frag.appendChild(fig);
+        }
+
+        scroller.innerHTML = '';
+        scroller.appendChild(frag);
+        scroller.dataset.hydrated = '1';
+      }
+
+      function closeViewer(viewer, opts) {
+        opts = opts || {};
+        if (!viewer.classList.contains('is-open')) return;
+        /* Save scroll position so reopening restores where the reader left off */
+        const scroller = viewer.querySelector('.deck-scroller');
+        if (scroller) savedScroll[viewer.dataset.viewerFor] = scroller.scrollTop;
+
+        /* When switching between viewers, snap the closing one shut so the
+           new viewer's scroll target is computed against a stable layout */
+        if (opts.instant) {
+          viewer.style.transition = 'none';
+        }
+
+        viewer.classList.remove('is-open');
+        viewer.setAttribute('aria-hidden', 'true');
+        const trigger = document.querySelector('.piece-link[data-viewer-for="' + viewer.dataset.viewerFor + '"]')
+                     || document.querySelector('.piece-link[data-piece="' + viewer.dataset.viewerFor + '"]');
+        if (trigger) trigger.classList.remove('is-active');
+
+        if (opts.instant) {
+          /* Force reflow with the no-transition style, then restore so the
+             next open animates normally */
+          // eslint-disable-next-line no-unused-expressions
+          viewer.offsetHeight;
+          requestAnimationFrame(() => { viewer.style.transition = ''; });
+        }
+
+        if (opts.scrollToTrigger && trigger) {
+          const targetY = trigger.getBoundingClientRect().top + window.scrollY - NAV_H;
+          window.scrollTo({ top: targetY, behavior: 'smooth' });
+        }
+      }
+
+      function closeAll(opts) { viewers.forEach(v => closeViewer(v, opts)); }
+
+      function openViewer(viewer, trigger) {
+        /* Snap any other open viewers shut so we can compute the new one's
+           position against a stable layout (no half-collapsed drawers above) */
+        closeAll({ instant: true });
+
+        const scroller = viewer.querySelector('.deck-scroller');
+        if (scroller) {
+          hydrateScroller(scroller);
+          /* Restore previous scroll if the user is reopening this deck */
+          const prevTop = savedScroll[viewer.dataset.viewerFor] || 0;
+          requestAnimationFrame(() => {
+            scroller.scrollTop = prevTop;
+            updateBackButton(viewer, scroller);
+          });
+        }
+        viewer.classList.add('is-open');
+        viewer.setAttribute('aria-hidden', 'false');
+        trigger.classList.add('is-active');
+
+        /* Scroll so the drawer itself sits just below the nav — making it
+           the focal content. The trigger piece scrolls partially above. */
+        const viewerTop = viewer.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: viewerTop - NAV_H, behavior: 'smooth' });
+      }
+
+      function updateBackButton(viewer, scroller) {
+        const btn = viewer.querySelector('.viewer-back');
+        if (!btn) return;
+        btn.classList.toggle('is-visible', scroller.scrollTop > 320);
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', e => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+          e.preventDefault();
+          const id = link.dataset.piece;
+          const viewer = document.querySelector('.piece-viewer[data-viewer-for="' + id + '"]');
+          if (!viewer) return;
+          viewer.classList.contains('is-open')
+            ? closeViewer(viewer, { scrollToTrigger: true })
+            : openViewer(viewer, link);
+        });
+      });
+
+      /* ── Close button (top-right): explicit close, returns to piece ── */
+      document.querySelectorAll('.viewer-close').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const viewer = btn.closest('.piece-viewer');
+          if (!viewer) return;
+          const trigger = document.querySelector('.piece-link[data-piece="' + viewer.dataset.viewerFor + '"]');
+          /* Going back to the beginning when explicitly closing via the X */
+          savedScroll[viewer.dataset.viewerFor] = 0;
+          closeViewer(viewer, { scrollToTrigger: true });
+          if (trigger) trigger.focus({ preventScroll: true });
+        });
+      });
+
+      /* ── Back-to-first-slide button (top-left) ── */
+      document.querySelectorAll('.viewer-back').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const viewer = btn.closest('.piece-viewer');
+          const scroller = viewer && viewer.querySelector('.deck-scroller');
+          if (scroller) scroller.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      /* ── Tap-to-close inside the scroller (with drag/scroll discrimination) ── */
+      viewers.forEach(viewer => {
+        const scroller = viewer.querySelector('.deck-scroller');
+        if (!scroller) return;
+
+        /* Show/hide the back button as the user scrolls */
+        scroller.addEventListener('scroll', () => {
+          updateBackButton(viewer, scroller);
+        }, { passive: true });
+
+        let downX = 0, downY = 0, downTime = 0, downScroll = 0, tracking = false;
+
+        scroller.addEventListener('pointerdown', e => {
+          /* Ignore taps that originate on the floating buttons */
+          if (e.target.closest('.viewer-close, .viewer-back')) return;
+          downX = e.clientX;
+          downY = e.clientY;
+          downTime = Date.now();
+          downScroll = scroller.scrollTop;
+          tracking = true;
+        });
+
+        scroller.addEventListener('pointerup', e => {
+          if (!tracking) return;
+          tracking = false;
+          const dx = Math.abs(e.clientX - downX);
+          const dy = Math.abs(e.clientY - downY);
+          const dt = Date.now() - downTime;
+          const scrolled = Math.abs(scroller.scrollTop - downScroll);
+          /* A "tap": short duration, no finger movement, scroll position unchanged */
+          if (dt < 260 && dx < 8 && dy < 8 && scrolled < 4) {
+            closeViewer(viewer, { scrollToTrigger: true });
+          }
+        });
+
+        scroller.addEventListener('pointercancel', () => { tracking = false; });
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeAll({ scrollToTrigger: true });
+      });
+    })();
+  </script>
+
+</body>
+</html>

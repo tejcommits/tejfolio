@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Just Tejas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --espresso:   #2F2C25;
+      --gold:       #D2B748;
+      --warm-white: #FFFEF9;
+      --cream:      #F8F5EE;
+      --text-muted: #7a7669;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hanken Grotesk', sans-serif;
+      background-color: var(--warm-white);
+      color: var(--espresso);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .sun {
+      display: inline-block;
+      color: var(--gold);
+      animation: spin 20s linear infinite;
+      flex-shrink: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(255, 254, 249, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(47, 44, 37, 0.07);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      color: var(--espresso);
+    }
+
+    .nav-brand .sun svg { width: 24px; height: 24px; }
+
+    .nav-wordmark {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--espresso);
+      opacity: 0.65;
+      transition: opacity 0.2s;
+      position: relative;
+    }
+
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-links a.active { opacity: 1; }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 1.5px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .nav-links a.disabled {
+      opacity: 0.3;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 9rem 3rem 5rem;
+    }
+
+    /* Hero */
+    .cv-hero {
+      margin-bottom: 4.5rem;
+    }
+
+    .cv-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--espresso);
+      margin-bottom: 0.5rem;
+    }
+
+    .cv-hero-sub {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+
+    .cv-bio {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--espresso);
+      opacity: 0.72;
+      max-width: 640px;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin-bottom: 5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0.55rem;
+      left: 0;
+      width: 1px;
+      bottom: 0;
+      background: rgba(47, 44, 37, 0.12);
+    }
+
+    .job {
+      position: relative;
+      padding-left: 2rem;
+      padding-bottom: 3rem;
+    }
+
+    .job::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 0.55rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* Career break gets a softer dot */
+    .job.break::before {
+      background: transparent;
+      border: 1.5px solid var(--gold);
+    }
+
+    .job-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.3rem;
+    }
+
+    .job-years {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .job-company {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--espresso);
+      letter-spacing: -0.01em;
+    }
+
+    .job-role {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .job-type {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--espresso);
+      background: var(--cream);
+      border-radius: 100px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 1rem;
+    }
+
+    .job ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .job ul li {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--espresso);
+      opacity: 0.78;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .job ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    /* Skills */
+    .skills-section { margin-bottom: 5rem; }
+
+    .skills-group {
+      margin-bottom: 1.8rem;
+    }
+
+    .skills-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .pill {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--espresso);
+      background: var(--cream);
+      border: 1px solid rgba(47, 44, 37, 0.12);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* Education */
+    .edu-section { margin-bottom: 5rem; }
+
+    .edu-item {
+      padding-bottom: 1.4rem;
+    }
+
+    .edu-item + .edu-item {
+      border-top: 1px solid rgba(47, 44, 37, 0.08);
+      padding-top: 1.4rem;
+    }
+
+    .edu-degree {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--espresso);
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-school {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* PDF CTA */
+    .pdf-cta {
+      background: var(--cream);
+      border-radius: 12px;
+      padding: 2rem 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pdf-cta p {
+      font-size: 0.95rem;
+      color: var(--espresso);
+      opacity: 0.8;
+    }
+
+    .pdf-cta a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gold);
+      border: 1.5px solid var(--gold);
+      padding: 0.6rem 1.5rem;
+      border-radius: 100px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .pdf-cta a:hover {
+      background: var(--gold);
+      color: var(--espresso);
+    }
+
+    footer {
+      background-color: var(--espresso);
+      border-top: 1px solid rgba(255, 254, 249, 0.08);
+      padding: 1.8rem 3rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--warm-white);
+      opacity: 0.35;
+      letter-spacing: 0.03em;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.4rem; }
+      .page { padding: 7rem 1.4rem 4rem; }
+      .pdf-cta { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+  <style>
+    /* ─── Custom cursor — one solid nib, zero lag ───────────────── */
+    .cursor-nib {
+      position: fixed; top: 0; left: 0;
+      width: 14px; height: 24px;
+      pointer-events: none;
+      z-index: 10000;
+      opacity: 0;
+      transform-origin: 50% 0%;
+      transform: translate(-50%, 0%) rotate(-45deg);
+      transition: opacity 0.25s ease, transform 0.18s cubic-bezier(.22,.68,0,1.2);
+    }
+    .cursor-nib.hovering { transform: translate(-50%, 0%) rotate(-68deg); }
+    @keyframes ink-ring {
+      0%   { transform: translate(-50%, -50%) scale(1);  opacity: 0.85; }
+      100% { transform: translate(-50%, -50%) scale(6);  opacity: 0; }
+    }
+    .cursor-active .cursor-nib { opacity: 1; }
+    .cursor-active, .cursor-active * { cursor: none !important; }
+    @media (max-width: 900px) { .cursor-nib { display: none; } }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor-nib" aria-hidden="true">
+    <svg width="14" height="24" viewBox="0 0 14 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7 0.5 L13 9 L11.5 18 Q7 23 2.5 18 L1 9 Z"
+            fill="none"
+            stroke="#D2B748" stroke-width="1"/>
+      <line x1="7" y1="0.5" x2="7" y2="13.5"
+            stroke="#D2B748" stroke-width="0.65" opacity="0.75"/>
+      <ellipse cx="7" cy="14.5" rx="1.2" ry="1.6"
+               fill="none" stroke="#D2B748" stroke-width="0.7" opacity="0.8"/>
+      <circle cx="7" cy="0.5" r="1.3" fill="#D2B748"/>
+    </svg>
+  </div>
+
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <span class="sun">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <circle cx="50" cy="50" r="18" stroke="currentColor" stroke-width="2.5"/>
+          <line x1="50" y1="5"  x2="50" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="50" y1="80" x2="50" y2="95" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="5"  y1="50" x2="20" y2="50" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="80" y1="50" x2="95" y2="50" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="18.3" y1="18.3" x2="28.9" y2="28.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="71.1" y1="71.1" x2="81.7" y2="81.7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="81.7" y1="18.3" x2="71.1" y2="28.9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="28.9" y1="71.1" x2="18.3" y2="81.7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="nav-wordmark">Tejas</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">About</a></li>
+      <li><a href="cv.html" class="active">CV</a></li>
+      <li><a href="work.html" class="disabled" title="I'm working on it">Work</a></li>
+    </ul>
+  </nav>
+
+
+  <main class="page">
+
+    <div class="cv-hero">
+      <h1>Nine years.<br>A lot of words.</h1>
+      <p class="cv-hero-sub">Creative Director · Mumbai</p>
+      <p class="cv-bio">Nine years of building brand meaning, not just brand material. The campaigns won pitches. The platforms held. The voice systems didn't need policing after handover. I think about what a brand does inside someone's head long before I think about what it looks like in a deck.</p>
+    </div>
+
+
+    <p class="section-label reveal">Experience</p>
+    <div class="timeline">
+
+      <!-- Career Break -->
+      <div class="job break reveal">
+        <div class="job-meta">
+          <span class="job-years">Jan 2026 – Present</span>
+          <span class="job-company">Career Break</span>
+        </div>
+        <ul>
+          <li>Recovering from knee surgery and getting health back on track</li>
+          <li>Took up select freelance projects</li>
+          <li>Shipped yogastithi.com solo using Claude, from concept to live deployment, no developer involved</li>
+        </ul>
+      </div>
+
+      <!-- CheilX -->
+      <div class="job reveal">
+        <div class="job-meta">
+          <span class="job-years">Jul 2024 – Jan 2026</span>
+          <span class="job-company">CheilX India</span>
+        </div>
+        <div class="job-role">Creative Group Head</div>
+        <span class="job-type">Integrated + Brand Experience</span>
+        <ul>
+          <li>Led ideation and campaign writing across a high volume of pitches at the integrated arm of Cheil Worldwide</li>
+          <li>Directed AI-assisted content production for live pitch decks: Claude &amp; ChatGPT for writing, ElevenLabs for voiceovers, LTX, Nano Banana, Kling &amp; HuggingFace for videos</li>
+          <li>Four pitch wins: NPCI, Bentley India, Hero MotoCorp, Nongshim Shin Ramyun</li>
+          <li>Other accounts: BMW, Amazon Prime, Tata Motors</li>
+        </ul>
+      </div>
+
+      <!-- Rediffusion -->
+      <div class="job reveal">
+        <div class="job-meta">
+          <span class="job-years">2021 – 2024</span>
+          <span class="job-company">Rediffusion Brand Solutions</span>
+        </div>
+        <div class="job-role">Creative Partner</div>
+        <span class="job-type">Mainline</span>
+        <ul>
+          <li>Wrote TVCs, OOH, and print for Tata Power, Tata Motors, IHCL, and Glucon-D</li>
+          <li>Worked at concept and copy level across brand platform and campaign work, in collaboration with NCDs and senior CDs</li>
+          <li>Took briefs from strategy through to execution across the account mix</li>
+        </ul>
+      </div>
+
+      <!-- Contract -->
+      <div class="job reveal">
+        <div class="job-meta">
+          <span class="job-years">2020 – 2021</span>
+          <span class="job-company">Contract Advertising</span>
+        </div>
+        <div class="job-role">Creative Supervisor</div>
+        <span class="job-type">Integrated</span>
+        <ul>
+          <li>Directed integrated campaigns across OOH, print, and digital for HSBC India, L&amp;T Realty, HUL Pureit, Khimji Jewellery</li>
+          <li>Led direct mailer campaigns for HSBC Cashback Credit Card</li>
+          <li>Owned brand and project-level work for L&amp;T Realty including brochures and campaign material for West Square</li>
+        </ul>
+      </div>
+
+      <!-- Fulcro -->
+      <div class="job reveal">
+        <div class="job-meta">
+          <span class="job-years">2018 – 2020</span>
+          <span class="job-company">Fulcro</span>
+        </div>
+        <div class="job-role">Senior Copywriter</div>
+        <span class="job-type">Digital</span>
+        <ul>
+          <li>Organic and paid campaigns for Asus ROG, Bajaj Electricals (B2B and B2C), Morphy Richards, NPCI, Pearson</li>
+          <li>Created numerous IPs since the launch of ROG Phones in India: an in-person gaming meet, a multi-episode Instagram narrative built for engagement, serialised social storytelling before it was a format</li>
+          <li>Developed thinking across organic and paid media, learning to write for both without flattening either</li>
+        </ul>
+      </div>
+
+      <!-- Thought Bubbles -->
+      <div class="job reveal">
+        <div class="job-meta">
+          <span class="job-years">2017 – 2018</span>
+          <span class="job-company">Thought Bubbles</span>
+        </div>
+        <div class="job-role">Copywriter</div>
+        <span class="job-type">Mainline</span>
+        <ul>
+          <li>Print, OOH, and digital for Kris Gethin Gyms, ICICI, and others</li>
+        </ul>
+      </div>
+
+    </div>
+
+
+    <!-- Skills -->
+    <div class="skills-section reveal">
+      <p class="section-label">What I Build With</p>
+      <div class="skills-group">
+        <p class="skills-category">Creative</p>
+        <div class="pills">
+          <span class="pill">Campaign Concepting</span>
+          <span class="pill">Brand Platform Development</span>
+          <span class="pill">Product Narrative</span>
+          <span class="pill">Content Strategy</span>
+          <span class="pill">TVC Scripting</span>
+          <span class="pill">OOH</span>
+          <span class="pill">Creative Leadership</span>
+          <span class="pill">Brand Voice Systems</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <p class="skills-category">AI Production</p>
+        <div class="pills">
+          <span class="pill">Claude</span>
+          <span class="pill">ChatGPT</span>
+          <span class="pill">ElevenLabs</span>
+          <span class="pill">LTX</span>
+          <span class="pill">Nano Banana</span>
+          <span class="pill">Kling</span>
+          <span class="pill">Higgsfield</span>
+          <span class="pill">Midjourney</span>
+          <span class="pill">HuggingFace</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Education -->
+    <div class="edu-section reveal">
+      <p class="section-label">Education</p>
+      <div class="edu-item">
+        <div class="edu-degree">BSc Information Technology <span style="font-weight:400; font-size:0.88rem; color:var(--text-muted);">(Second Year)</span></div>
+        <div class="edu-school">Wilson College, Mumbai</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">Diploma in Industrial Electronics</div>
+        <div class="edu-school">Fr. Agnel Polytechnic, Navi Mumbai</div>
+      </div>
+    </div>
+
+
+    <!-- CTA -->
+    <div class="pdf-cta reveal">
+      <p>Want the full CV as a PDF?</p>
+      <a href="https://www.canva.com/design/DAHJwbKcyOY/CO8FxMrZYfrm_vTLrCMFLA/view" target="_blank" rel="noopener">View full CV →</a>
+    </div>
+
+  </main>
+
+
+  <footer>
+    <p>Built with care. And Claude.</p>
+  </footer>
+
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    /* ─── Custom cursor — one solid nib, zero lag ───────────────── */
+    (function() {
+      const cursorNib = document.querySelector('.cursor-nib');
+      if (!cursorNib) return;
+      let visible = false;
+      document.addEventListener('mousemove', e => {
+        cursorNib.style.left = e.clientX + 'px';
+        cursorNib.style.top  = e.clientY + 'px';
+        if (!visible) { visible = true; document.body.classList.add('cursor-active'); }
+      });
+      document.addEventListener('mouseleave', () => { document.body.classList.remove('cursor-active'); visible = false; });
+      document.addEventListener('mouseenter', () => { document.body.classList.add('cursor-active'); visible = true; });
+      document.querySelectorAll('a, button, .nav-brand').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorNib.classList.add('hovering'));
+        el.addEventListener('mouseleave', () => cursorNib.classList.remove('hovering'));
+      });
+      document.addEventListener('click', e => {
+        const ring = document.createElement('div');
+        ring.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;width:8px;height:8px;border:1.5px solid #D2B748;border-radius:50%;pointer-events:none;z-index:10002;animation:ink-ring 0.45s ease-out forwards;`;
+        document.body.appendChild(ring);
+        setTimeout(() => ring.remove(), 460);
+      });
+    })();
+  </script>
+
+</body>
+</html>
