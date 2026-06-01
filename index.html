@@ -186,8 +186,8 @@
     .nav-links { display: flex; gap: 2rem; list-style: none; }
 
     .nav-links a {
-      text-decoration: none; font-size: 0.87rem; font-weight: 500;
-      color: var(--espresso); opacity: 0.5; transition: opacity 0.2s; position: relative;
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      color: var(--espresso); opacity: 0.65; transition: opacity 0.2s; position: relative;
     }
 
     .nav-links a:hover { opacity: 1; }
@@ -197,6 +197,20 @@
       content: ''; position: absolute;
       bottom: -4px; left: 0; right: 0;
       height: 1.5px; background: var(--gold); border-radius: 2px;
+    }
+
+    /* ─── Scroll-progress line at the bottom of the nav ─────────── */
+    .nav-progress {
+      position: absolute;
+      bottom: -1px; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--gold);
+      opacity: 0.65;
+      pointer-events: none;
+      /* Feathered leading edge — ink seeping into paper */
+      -webkit-mask-image: linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%);
+              mask-image: linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%);
     }
 
     .nav-links .work-link { opacity: 0.25; pointer-events: none; cursor: default; }
@@ -830,10 +844,11 @@
       <span class="nav-wordmark">Tejas</span>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html" class="active">Hi</a></li>
+      <li><a href="index.html" class="active">About</a></li>
       <li><a href="cv.html">CV</a></li>
-      <li><a href="work.html" class="work-link" title="Almost, I promise">Work</a></li>
+      <li><a href="work.html">Work</a></li>
     </ul>
+    <div class="nav-progress" aria-hidden="true"></div>
   </nav>
 
 
@@ -1059,7 +1074,7 @@
       </svg>
     </div>
     <div class="cta-inner">
-      <h2>So, what do you think?<span class="cta-h2-tail">Let's catch up, maybe? ☕️</span></h2>
+      <h2>So, what do you think?<span class="cta-h2-tail">Let's catch up ☕️</span></h2>
       <div class="cta-body">
         <p>Open to Creative Director roles, consulting gigs, and the briefs you're losing sleep over.</p>
         <p>Also up for conversations about AI, photography, music, motorcycles, consciousness, or anything that makes the coffee hit different.</p>
@@ -1468,6 +1483,27 @@
       const photo = document.querySelector('.hero-photo-frame');
       if (photo) { photo.style.opacity = '1'; photo.style.transform = 'rotate(2deg)'; }
     }
+  </script>
+
+  <!-- ─── Nav scroll-progress ──────────────────────────────────── -->
+  <script>
+    (function() {
+      const bar = document.querySelector('.nav-progress');
+      if (!bar) return;
+      let ticking = false;
+      function update() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+        bar.style.width = pct + '%';
+        ticking = false;
+      }
+      function onScroll() {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
   </script>
 
 </body>

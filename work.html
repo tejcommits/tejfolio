@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Work — Just Tejas</title>
+  <title>Work · Just Tejas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet" />
@@ -102,8 +102,8 @@
     .nav-links { display: flex; gap: 2rem; list-style: none; }
 
     .nav-links a {
-      text-decoration: none; font-size: 0.87rem; font-weight: 500;
-      color: var(--espresso); opacity: 0.5; transition: opacity 0.2s; position: relative;
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      color: var(--espresso); opacity: 0.65; transition: opacity 0.2s; position: relative;
     }
 
     .nav-links a:hover { opacity: 1; }
@@ -113,6 +113,19 @@
       content: ''; position: absolute;
       bottom: -4px; left: 0; right: 0;
       height: 1.5px; background: var(--gold); border-radius: 2px;
+    }
+
+    /* ─── Scroll-progress line at the bottom of the nav ─────────── */
+    .nav-progress {
+      position: absolute;
+      bottom: -1px; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--gold);
+      opacity: 0.65;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%);
+              mask-image: linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%);
     }
 
     /* ─── Page header ──────────────────────────────────────────── */
@@ -649,10 +662,11 @@
       <span class="nav-wordmark">Tejas</span>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html">Hi</a></li>
+      <li><a href="index.html">About</a></li>
       <li><a href="cv.html">CV</a></li>
       <li><a href="work.html" class="active">Work</a></li>
     </ul>
+    <div class="nav-progress" aria-hidden="true"></div>
   </nav>
 
   <!-- ─── PAGE HEADER ──────────────────────────────────────────── -->
@@ -680,7 +694,7 @@
             <span class="piece-client">Hero MotoCorp</span>
           </div>
           <h2 class="piece-project">Hero XOOM</h2>
-          <p class="piece-desc">The brief was a scooter launch. The question was: which version of this campaign do you lead with? So we made three. One drops the scooter into a Squid Game arena and turns every street into a survival game. One goes full 8-bit — Pac-Man, but you're the one doing the eating. One is built around a tagline simple enough to live on a billboard and sticky enough to survive the client meeting. Three different worlds, one brief.</p>
+          <p class="piece-desc">The brief was a scooter launch. The question was: which version of this campaign do you lead with? So we made three. One drops the scooter into a Squid Game arena and turns every street into a survival game. One goes full 8-bit. Pac-Man, but you're the one doing the eating. One is built around a tagline simple enough to live on a billboard and sticky enough to survive the client meeting. Three different worlds, one brief.</p>
           <span class="piece-tag">Campaign · 2024</span>
           <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
         </div>
@@ -689,7 +703,7 @@
     <div class="piece-viewer" data-viewer-for="01" aria-hidden="true">
       <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
       <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
-      <div class="deck-scroller" data-deck-id="01-hero-xoom" aria-label="Hero XOOM — slides"></div>
+      <div class="deck-scroller" data-deck-id="01-hero-xoom" aria-label="Hero XOOM slides"></div>
     </div>
 
     <!-- 02 · Tata Motors Red#Dark Edition (PDF, opens in browser) -->
@@ -702,26 +716,26 @@
             <span class="piece-client">Tata Motors</span>
           </div>
           <h2 class="piece-project">Red#Dark Edition</h2>
-          <p class="piece-desc">A limited dark edition car. So we put it somewhere dark. Not dramatically dark — cinematically dark. Deep space. Red accents against a black canvas. The Red Moon. The kind of aesthetic that makes you look twice because it shouldn't work as a car ad and yet it completely does.</p>
+          <p class="piece-desc">A limited dark edition car. So we put it somewhere dark. Not dramatically dark. Cinematically dark. Deep space. Red accents against a black canvas. The Red Moon. The kind of aesthetic that makes you look twice because it shouldn't work as a car ad and yet it completely does.</p>
           <span class="piece-tag">Campaign · 2024</span>
           <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
         </div>
         <div class="piece-image">
-          <img src="assets/work/02-tata-red-dark.jpg" alt="The Red Moon — Tata Red#Dark Edition campaign visual" />
+          <img src="assets/work/02-tata-red-dark.jpg" alt="The Red Moon, Tata Red#Dark Edition campaign visual" />
         </div>
       </article>
     </a>
     <div class="piece-viewer" data-viewer-for="02" aria-hidden="true">
       <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
       <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
-      <div class="deck-scroller" data-deck-id="02-tata-red-dark" aria-label="Red#Dark Edition — slides"></div>
+      <div class="deck-scroller" data-deck-id="02-tata-red-dark" aria-label="Red#Dark Edition slides"></div>
     </div>
 
     <!-- 03 · Motilal Oswal (PDF, opens in browser) -->
     <a class="piece-link" href="assets/work/03-motilal-oswal.jpg" data-piece="03" aria-label="Open The Lonely Bicycle deck">
       <article class="piece piece-odd">
         <div class="piece-image">
-          <img src="assets/work/03-motilal-oswal.jpg" alt="The Lonely Bicycle — Motilal Oswal print campaign visual" />
+          <img src="assets/work/03-motilal-oswal.jpg" alt="The Lonely Bicycle, Motilal Oswal print campaign visual" />
         </div>
         <div class="piece-text">
           <div class="piece-meta">
@@ -730,7 +744,7 @@
             <span class="piece-client">Motilal Oswal</span>
           </div>
           <h2 class="piece-project">The Lonely Bicycle</h2>
-          <p class="piece-desc">The insight was simple: idle money has feelings. Not literally — but the visual language of abandonment is universal. A bicycle that never gets ridden. A golf kit collecting dust in a corner. Objects designed for motion, going nowhere. The campaign made that stillness feel almost uncomfortable. Which is exactly what it should feel like when your money isn't working.</p>
+          <p class="piece-desc">The insight was simple: idle money has feelings. Not literally. But the visual language of abandonment is universal. A bicycle that never gets ridden. A golf kit collecting dust in a corner. Objects designed for motion, going nowhere. The campaign made that stillness feel almost uncomfortable. Which is exactly what it should feel like when your money isn't working.</p>
           <span class="piece-tag">Print Campaign · 2024</span>
           <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
         </div>
@@ -739,7 +753,7 @@
     <div class="piece-viewer" data-viewer-for="03" aria-hidden="true">
       <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
       <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
-      <div class="deck-scroller" data-deck-id="03-motilal-oswal" aria-label="The Lonely Bicycle — slides"></div>
+      <div class="deck-scroller" data-deck-id="03-motilal-oswal" aria-label="The Lonely Bicycle slides"></div>
     </div>
 
     <!-- 04 · Bank of Baroda (PDF) -->
@@ -764,14 +778,14 @@
     <div class="piece-viewer" data-viewer-for="04" aria-hidden="true">
       <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
       <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
-      <div class="deck-scroller" data-deck-id="04-bank-of-baroda" aria-label="Bank of Baroda — slides"></div>
+      <div class="deck-scroller" data-deck-id="04-bank-of-baroda" aria-label="Bank of Baroda slides"></div>
     </div>
 
     <!-- 05 · Hibiki Suntory Whisky (PDF) -->
     <a class="piece-link" href="assets/work/05-hibiki.jpg" data-piece="05" aria-label="Open Hibiki Making Harmony deck">
       <article class="piece piece-odd">
         <div class="piece-image">
-          <img src="assets/work/05-hibiki.jpg" alt="Crafting Harmony — Hibiki Suntory Whisky title mark" />
+          <img src="assets/work/05-hibiki.jpg" alt="Crafting Harmony, Hibiki Suntory Whisky title mark" />
         </div>
         <div class="piece-text">
           <div class="piece-meta">
@@ -780,7 +794,7 @@
             <span class="piece-client">Hibiki Suntory Whisky</span>
           </div>
           <h2 class="piece-project">Making Harmony</h2>
-          <p class="piece-desc">An evening for one of Japan's most celebrated whiskies, hosted at Megu inside The Leela, with the Prince of Jaipur. Every touchpoint was considered — the invite design, the venue branding, the flow of the event itself. Hibiki is built around the idea of harmony between nature, craftsmanship, and time. The event had to feel like that. It did.</p>
+          <p class="piece-desc">An evening for one of Japan's most celebrated whiskies, hosted at Megu inside The Leela, with the Prince of Jaipur. Every touchpoint was considered: the invite design, the venue branding, the flow of the event itself. Hibiki is built around the idea of harmony between nature, craftsmanship, and time. The event had to feel like that. It did.</p>
           <span class="piece-tag">Brand Experience · 2024</span>
           <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
         </div>
@@ -789,7 +803,7 @@
     <div class="piece-viewer" data-viewer-for="05" aria-hidden="true">
       <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
       <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
-      <div class="deck-scroller" data-deck-id="05-hibiki" aria-label="Hibiki Making Harmony — slides"></div>
+      <div class="deck-scroller" data-deck-id="05-hibiki" aria-label="Hibiki Making Harmony slides"></div>
     </div>
 
     <!-- 06 · EAAA (PDF) -->
@@ -802,7 +816,7 @@
             <span class="piece-client">EAAA</span>
           </div>
           <h2 class="piece-project">IPO = FOMO</h2>
-          <p class="piece-desc">An IPO launch with a finance influencer strategy built around one mechanic: make people feel like they're missing something before they know what it is. The "Curiosity Buster" — a teaser-first content format that used influencer reach to build buzz before the product was named. FOMO as a campaign engine, not just a tagline.</p>
+          <p class="piece-desc">An IPO launch with a finance influencer strategy built around one mechanic: make people feel like they're missing something before they know what it is. The "Curiosity Buster" was a teaser-first content format that used influencer reach to build buzz before the product was named. FOMO as a campaign engine, not just a tagline.</p>
           <span class="piece-tag">Digital Campaign · 2024</span>
           <span class="piece-cue">View deck <span class="piece-cue-arrow" aria-hidden="true">→</span></span>
         </div>
@@ -814,7 +828,7 @@
     <div class="piece-viewer" data-viewer-for="06" aria-hidden="true">
       <button type="button" class="viewer-back" aria-label="Back to first slide"><span aria-hidden="true">↑</span> <span>First slide</span></button>
       <button type="button" class="viewer-close" aria-label="Close deck"><span>Close</span> <span class="viewer-close-x" aria-hidden="true">×</span></button>
-      <div class="deck-scroller" data-deck-id="06-eaaa" aria-label="EAAA IPO = FOMO — slides"></div>
+      <div class="deck-scroller" data-deck-id="06-eaaa" aria-label="EAAA IPO = FOMO slides"></div>
     </div>
 
     <!-- 07 · Glucon-D (no deck or visual yet — non-clickable) -->
@@ -869,7 +883,7 @@
   <section class="work-end">
     <div class="work-end-inner">
       <h2>That's not all of it.</h2>
-      <p>More work, sorted by industry — finance, auto, FMCG, tech, and some AI experiments.</p>
+      <p>More work, sorted by industry: finance, auto, FMCG, tech, and some AI experiments.</p>
       <a href="#" class="work-end-btn">Explore more work →</a>
     </div>
   </section>
@@ -1105,6 +1119,31 @@
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') closeAll({ scrollToTrigger: true });
       });
+    })();
+  </script>
+
+  <!-- ─── Nav scroll-progress ──────────────────────────────────── -->
+  <script>
+    (function() {
+      const bar = document.querySelector('.nav-progress');
+      if (!bar) return;
+      let ticking = false;
+      function update() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+        bar.style.width = pct + '%';
+        ticking = false;
+      }
+      function onScroll() {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', update);
+      /* Recalc after deck drawers expand/collapse — page height changes */
+      document.querySelectorAll('.piece-viewer').forEach(v => {
+        v.addEventListener('transitionend', update);
+      });
+      update();
     })();
   </script>
 

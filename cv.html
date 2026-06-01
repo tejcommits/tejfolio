@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CV — Just Tejas</title>
+  <title>CV · Just Tejas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -101,6 +101,19 @@
       border-radius: 2px;
     }
 
+    /* ─── Scroll-progress line at the bottom of the nav ─────────── */
+    .nav-progress {
+      position: absolute;
+      bottom: -1px; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--gold);
+      opacity: 0.65;
+      pointer-events: none;
+      -webkit-mask-image: linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%);
+              mask-image: linear-gradient(to right, black 0%, black calc(100% - 8px), transparent 100%);
+    }
+
     .nav-links a.disabled {
       opacity: 0.3;
       cursor: default;
@@ -141,6 +154,8 @@
       opacity: 0.72;
       max-width: 640px;
     }
+
+    .cv-bio + .cv-bio { margin-top: 1.2rem; }
 
     /* Section label */
     .section-label {
@@ -251,7 +266,7 @@
     }
 
     .job ul li::before {
-      content: '—';
+      content: '·';
       position: absolute;
       left: 0;
       color: var(--gold);
@@ -440,35 +455,25 @@
     <ul class="nav-links">
       <li><a href="index.html">About</a></li>
       <li><a href="cv.html" class="active">CV</a></li>
-      <li><a href="work.html" class="disabled" title="I'm working on it">Work</a></li>
+      <li><a href="work.html">Work</a></li>
     </ul>
+    <div class="nav-progress" aria-hidden="true"></div>
   </nav>
 
 
   <main class="page">
 
     <div class="cv-hero">
-      <h1>Nine years.<br>A lot of words.</h1>
-      <p class="cv-hero-sub">Creative Director · Mumbai</p>
-      <p class="cv-bio">Nine years of building brand meaning, not just brand material. The campaigns won pitches. The platforms held. The voice systems didn't need policing after handover. I think about what a brand does inside someone's head long before I think about what it looks like in a deck.</p>
+      <h1>Tejas Anilkumar</h1>
+      <p class="cv-hero-sub">Creative Group Head · Mumbai · Open to Creative Director roles and consulting</p>
+      <p class="cv-bio">Nine years of building brand meaning, not just brand material.</p>
+      <p class="cv-bio">I think about what a brand does in the audience's mind before I think about what it looks like in a deck. That approach has held across mainline, digital, and integrated work.</p>
+      <p class="cv-bio">Working with AI production tools since 2022.</p>
     </div>
 
 
     <p class="section-label reveal">Experience</p>
     <div class="timeline">
-
-      <!-- Career Break -->
-      <div class="job break reveal">
-        <div class="job-meta">
-          <span class="job-years">Jan 2026 – Present</span>
-          <span class="job-company">Career Break</span>
-        </div>
-        <ul>
-          <li>Recovering from knee surgery and getting health back on track</li>
-          <li>Took up select freelance projects</li>
-          <li>Shipped yogastithi.com solo using Claude, from concept to live deployment, no developer involved</li>
-        </ul>
-      </div>
 
       <!-- CheilX -->
       <div class="job reveal">
@@ -541,6 +546,19 @@
         <span class="job-type">Mainline</span>
         <ul>
           <li>Print, OOH, and digital for Kris Gethin Gyms, ICICI, and others</li>
+        </ul>
+      </div>
+
+      <!-- Sabbatical -->
+      <div class="job break reveal">
+        <div class="job-meta">
+          <span class="job-years">Jan 2026 – June 2026</span>
+          <span class="job-company">Sabbatical</span>
+        </div>
+        <ul>
+          <li>Took up select freelance projects</li>
+          <li>Shipped yogastithi.com solo using Claude, from concept to live deployment, no developer involved</li>
+          <li>Recovering from a knee injury and getting health back on track</li>
         </ul>
       </div>
 
@@ -646,6 +664,27 @@
         document.body.appendChild(ring);
         setTimeout(() => ring.remove(), 460);
       });
+    })();
+  </script>
+
+  <!-- ─── Nav scroll-progress ──────────────────────────────────── -->
+  <script>
+    (function() {
+      const bar = document.querySelector('.nav-progress');
+      if (!bar) return;
+      let ticking = false;
+      function update() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+        bar.style.width = pct + '%';
+        ticking = false;
+      }
+      function onScroll() {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', update);
+      update();
     })();
   </script>
 
